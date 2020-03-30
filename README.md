@@ -12,12 +12,12 @@ You do need a USA or EUR 3DS/2DS and an eshop download of Smilebasic to get star
 ## Exploit 
 
 Utf-16 characters can be assigned to subscripted TIME$/DATE$ interpreter sysvars which results in write-only access to all of DATA and some BSS in userland.<br>
-TIME$[0]/DATE[0] actually points to somewhere in rodata, and an overly large subscript can be used to write well past it into the aforementioned areas.
+TIME$[0]/DATE$[0] actually point to somewhere in rodata, and an overly large subscript can be used to write well past it and into the aforementioned areas.
 
 ## Q&A 
 
 Q: IIe?<br>
-A: A reference to the legendary Apple IIe, one of the BASIC enabled 80's era PCs that inspired Smilebasic/Petit Computer's invention. It's also a reference to the first Smilehax by plutoo, of course.
+A: This is a reference to the legendary Apple IIe, one of the BASIC enabled 80's era PCs that inspired Smilebasic/Petit Computer's invention. It's also a reference to the first Smilehax by plutoo, of course.
 
 Q: JPN support?<br>
 A: The vuln was actually fixed on JPN SB version 3.6.2 (and documented on the dev's JPN site!), however, you can delete/rename the update file and run the vuln on base app version 3.3.2.<br>
