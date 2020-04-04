@@ -2,12 +2,12 @@
 
 ## Intro
 
-This is a new primary exploit for 3DS Smilebasic 3.6.0 (latest as of 3dsfirm 11.13). USA and EUR are supported.
+This is a new primary exploit for 3DS Smilebasic 3.6.0 USA/EUR (& 3.3.2 JPN). USA/EUR are currently the latest appversion, while JPN 3.6.3 can be downgraded to 3.3.2.
 
 ## Directions 
 
 Directions are provided in the Release archive.<br>
-You do need a USA or EUR 3DS/2DS and an eshop download of Smilebasic to get started.
+You do need a USA, EUR, or JPN 3DS/2DS and an eshop download of Smilebasic to get started.
 
 ## Exploit 
 
@@ -20,8 +20,9 @@ Q: IIe?<br>
 A: This is a reference to the legendary Apple IIe, one of the BASIC enabled 80's era PCs that inspired Smilebasic/Petit Computer's invention. It's also a reference to the first Smilehax by plutoo, of course.
 
 Q: JPN support?<br>
-A: The vuln was actually fixed on JPN SB version 3.6.2 (and documented on the dev's JPN site!), however, you can delete/rename the update file and run the vuln on base app version 3.3.2.<br>
-I have not implemented JPN support, I'm just saying it's possible. It's a bit more trouble since 3.3.2 doesn't have DirectSdmc support, which was introduced on 3.6.0 to enable in-app screenshots.
+A: Yes. The vuln was actually fixed on JPN SB version 3.6.2 (and documented on the dev's JPN site!), however, you can delete/rename the update file and run the vuln on base app version 3.3.2.<br>
+It's a bit more trouble since 3.3.2 doesn't have DirectSdmc support, which was introduced on 3.6.0 to enable in-app screenshots. It's possible to bypass this issue using payloads downloaded via http<br>
+like the first smilehax did.
 
 Q: Will this work on JPN WiiU since it's latest version 3.6.0 too?<br>
 A: Maybe, but I doubt it. The 3ds version allows for about 1.5 MBs of overflowed access - I doubt that would be enough to reach critical areas on the system. Not sure though, go ahead and find out yourself
@@ -33,4 +34,5 @@ A: Not a chance.
 ## Thanks 
 
 - Yellows8 for 3ds ropkit
+- Plutoo for the http download template used in smilehax [here](https://github.com/plutooo/smilehax/blob/master/src/installer_stage0.py)
 - Everyone (most prolific 3ds dev ever)

