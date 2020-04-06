@@ -20,9 +20,11 @@ Q: IIe?<br>
 A: This is a reference to the legendary Apple IIe, one of the BASIC enabled 80's era PCs that inspired Smilebasic/Petit Computer's invention. It's also a reference to the first Smilehax by plutoo, of course.
 
 Q: JPN support?<br>
-A: Yes. The vuln was actually fixed on JPN SB version 3.6.2 (and documented on the dev's JPN site!), however, you can delete/rename the update file and run the vuln on base app version 3.3.2.<br>
-It's a bit more trouble since 3.3.2 doesn't have DirectSdmc support, which was introduced on 3.6.0 to enable in-app screenshots. It's possible to bypass this issue using payloads downloaded via http<br>
-like the first smilehax did.
+A: Yes, it's supported now. Instructions are in the Release.
+
+Q: Why is the JPN app version and hack method different from the West?<br>
+A: The vuln used here was actually fixed on JPN SB version 3.6.2 (and documented on the dev's JPN site!), so we need to  delete/rename the update file and run the vuln on base app version 3.3.2.<br>
+Since 3.3.2 doesn't have DirectSdmc support (which was introduced on 3.6.0 to enable in-app screenshots) we have to download the rop payload via HTTP instead of loading it from the SD card. This is basically (ha) how the first smilehax operated.
 
 Q: Will this work on JPN WiiU since it's latest version 3.6.0 too?<br>
 A: Maybe, but I doubt it. The 3ds version allows for about 1.5 MBs of overflowed access - I doubt that would be enough to reach critical areas on the system. Not sure though, go ahead and find out yourself
