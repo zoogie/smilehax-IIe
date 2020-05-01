@@ -2,7 +2,7 @@
 
 ## Intro
 
-This is a new primary exploit for 3DS Smilebasic 3.6.0 USA/EUR (& 3.3.2 JPN). USA/EUR are currently the latest appversion, while JPN 3.6.3 can be downgraded to 3.3.2.
+This is a new primary exploit for 3DS Smilebasic 3.6.0 USA/EUR (& 3.3.2 JPN). USA/EUR are currently the latest appversion, while JPN can be downgraded from 3.6.3->3.5.0 to 3.3.2.
 
 ## Directions 
 
