@@ -33,6 +33,9 @@ although I doubt I'd want to mess with it.
 Q: Switch?<br>
 A: Not a chance.
 
+Q: You [released](https://github.com/zoogie/petit-compwner) an exploit for petit computer not long ago, are these two sploits related?<br>
+A: Sort of! Smilehax IIe actually was developed first and the idea of checking official app changelogs for vulns inspired finding petit-compwner's vuln as well.
+
 ## Thanks 
 
 - Yellows8 for 3ds ropkit
